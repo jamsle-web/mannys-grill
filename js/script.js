@@ -219,6 +219,150 @@
                 var walk = (touchStartX - x) * 1.5;
                 track.scrollLeft = touchScrollLeft + walk;
             }, { passive: true });
+/* ============================================
+   GRILL — AVANCE AUTOMÁTICO
+   ============================================ */
+(function setupGrillAutoplay() {
+    if (!track || track.children.length < 2) return;
+
+var delay = 3000; // Tiempo entre avances.
+    var timer = null;
+    var visible = false;
+    var hovering = false;
+    var touching = false;
+    var focused = false;
+    var paused = false;
+
+var motionPreference = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+    );
+
+// Control accesible para detener la reproducción.
+    var pauseButton = document.createElement('button');
+    pauseButton.type = 'button';
+    pauseButton.textContent = 'Pausar carrusel';
+    pauseButton.setAttribute('aria-controls', 'grillTrack');
+    pauseButton.setAttribute('aria-pressed', 'false');
+    track.insertAdjacentElement('afterend', pauseButton);
+
+function stop() {
+        window.clearTimeout(timer);
+        timer = null;
+    }
+
+function canPlay() {
+        return visible &&
+            !hovering &&
+            !touching &&
+            !focused &&
+            !paused &&
+            !document.hidden &&
+            !motionPreference.matches;
+    }
+
+function advance() {
+        var maxScroll = track.scrollWidth - track.clientWidth;
+        if (maxScroll <= 1) return;
+
+var current = track.scrollLeft;
+        var destination = 0;
+
+if (current < maxScroll - 2) {
+            var cards = Array.from(track.children);
+            var firstLeft = cards[0].getBoundingClientRect().left;
+
+// Busca la siguiente tarjeta desde la posición actual.
+            destination = maxScroll;
+
+for (var i = 1; i < cards.length; i++) {
+                var position =
+                    cards[i].getBoundingClientRect().left - firstLeft;
+
+if (position > current + 2) {
+                    destination = Math.min(position, maxScroll);
+                    break;
+                }
+            }
+        }
+
+track.scrollTo({
+            left: destination,
+            behavior: 'smooth'
+        });
+    }
+
+function schedule() {
+        stop();
+        if (!canPlay()) return;
+
+timer = window.setTimeout(function() {
+            if (!canPlay()) return;
+            advance();
+            schedule();
+        }, delay);
+    }
+
+track.addEventListener('mouseenter', function() {
+        hovering = true;
+        stop();
+    });
+
+track.addEventListener('mouseleave', function() {
+        hovering = false;
+        schedule();
+    });
+
+track.addEventListener('touchstart', function() {
+        touching = true;
+        stop();
+    }, { passive: true });
+
+function endTouch() {
+        touching = false;
+        schedule();
+    }
+
+track.addEventListener('touchend', endTouch, { passive: true });
+    track.addEventListener('touchcancel', endTouch, { passive: true });
+
+track.addEventListener('focusin', function() {
+        focused = true;
+        stop();
+    });
+
+track.addEventListener('focusout', function(event) {
+        focused = track.contains(event.relatedTarget);
+        schedule();
+    });
+
+// Da tiempo para leer después de un desplazamiento manual.
+    track.addEventListener('scroll', schedule, { passive: true });
+
+pauseButton.addEventListener('click', function() {
+        paused = !paused;
+        pauseButton.textContent = paused
+            ? 'Reanudar carrusel'
+            : 'Pausar carrusel';
+        pauseButton.setAttribute('aria-pressed', String(paused));
+        schedule();
+    });
+
+function updateMotionPreference() {
+        pauseButton.hidden = motionPreference.matches;
+        schedule();
+    }
+
+motionPreference.addEventListener('change', updateMotionPreference);
+    document.addEventListener('visibilitychange', schedule);
+
+var observer = new IntersectionObserver(function(entries) {
+        visible = entries[0].isIntersecting;
+        schedule();
+    }, { threshold: 0.15 });
+
+observer.observe(track);
+    updateMotionPreference();
+})();
 
             /* ============================================
                BACK TO TOP
