@@ -5,14 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manny's Grill — El Sabor de la Parrilla | Santo Domingo Este</title>
     <meta name="description" content="Manny's Grill — BBQ y parrilla en Santo Domingo Este. Costillas, chuletón, mixtos, pollo, pescado y más. Delivery, para llevar y comer en local.">
-
-    <!-- Open Graph -->
     <meta property="og:title" content="Manny's Grill — El Sabor de la Parrilla">
     <meta property="og:description" content="BBQ y parrilla en Santo Domingo Este. Costillas, chuletón, mixtos y más.">
     <meta property="og:type" content="restaurant">
     <meta property="og:locale" content="es_DO">
 
-    <!-- Schema Restaurant -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -45,10 +42,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 </head>
 <body class="loading">
 
-    <!-- LOADING SCREEN -->
     <div id="loader">
         <div class="loader-logo">
             <div class="brand">
@@ -60,17 +59,18 @@
         <div class="loader-line"></div>
     </div>
 
-    <!-- NAVIGATION -->
     <nav id="navbar">
         <div class="container nav-inner">
-            <a href="#" class="nav-logo">MANNY'S <span>GRILL</span></a>
+            <a href="#hero" class="nav-logo">MANNY'S <span>GRILL</span></a>
             <ul class="nav-links">
-                <li><a href="#menu">Menu</a></li>
+                <li><a href="#hero">Inicio</a></li>
+                <li><a href="#grill">The Grill</a></li>
                 <li><a href="#experience-3d">Experiencia</a></li>
+                <li><a href="#menu">Menu</a></li>
                 <li><a href="#gallery">Galería</a></li>
                 <li><a href="#location">Visita</a></li>
             </ul>
-            <a href="#cta" class="nav-cta">Pedir</a>
+            <a href="https://wa.me/18295890707?text=Hola%20Manny's%20Grill,%20quiero%20hacer%20un%20pedido" target="_blank" rel="noopener" class="nav-cta">Pedir</a>
             <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
                 <span></span>
                 <span></span>
@@ -79,16 +79,16 @@
         </div>
     </nav>
 
-    <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
-        <a href="#menu">Menu</a>
+        <a href="#hero">Inicio</a>
+        <a href="#grill">The Grill</a>
         <a href="#experience-3d">Experiencia</a>
+        <a href="#menu">Menu</a>
         <a href="#gallery">Galería</a>
-        <a href="#location">Ubicación</a>
-        <a href="#cta" class="mobile-cta">Pedir Ahora</a>
+        <a href="#location">Visita</a>
+        <a href="https://wa.me/18295890707?text=Hola%20Manny's%20Grill,%20quiero%20hacer%20un%20pedido" target="_blank" rel="noopener" class="mobile-cta">Pedir Ahora</a>
     </div>
 
-    <!-- HERO -->
     <section id="hero">
         <div class="hero-bg" id="heroBg" style="background-image: url('https://images.unsplash.com/photo-1544025162-d76694265947?w=1920&q=80');"></div>
         <div class="hero-overlay"></div>
@@ -98,7 +98,7 @@
             <p class="hero-sub">Fuego. Carne. Sabor. <strong>Experiencia.</strong></p>
             <div class="hero-ctas">
                 <a href="#menu" class="btn btn-primary">Explorar Menú</a>
-                <a href="#cta" class="btn btn-outline">Pedir Ahora</a>
+                <a href="https://wa.me/18295890707?text=Hola%20Manny's%20Grill,%20quiero%20hacer%20un%20pedido" target="_blank" rel="noopener" class="btn btn-outline">Pedir Ahora</a>
             </div>
         </div>
         <div class="hero-scroll">
@@ -107,7 +107,9 @@
         </div>
     </section>
 
-    <!-- THE GRILL -->
+    <!-- ============================================
+         THE GRILL — CARRUSEL
+         ============================================ -->
     <section id="grill" class="section">
         <div class="grill-header reveal">
             <span class="section-label">04 — The Grill</span>
@@ -115,107 +117,162 @@
             <p class="section-subtitle">Platos preparados a la parrilla para compartir, disfrutar y volver por ellos.</p>
         </div>
 
-        <div class="horizontal-track" id="grillTrack">
-            <article class="grill-card" data-dish="costillas">
-                <div class="grill-card-img" style="background-image: url('https://images.unsplash.com/photo-1544025162-d76694265947?w=800&q=80');">
-                    <span class="grill-card-num">01</span>
-                </div>
-                <div class="grill-card-body">
-                    <h3 class="grill-card-title">Costillas de Cerdo</h3>
-                    <p class="grill-card-desc">1 libra de costillas de cerdo a la parrilla.</p>
-                    <div class="grill-card-price">RD$775</div>
-                    <div class="grill-card-rating"><span class="star">★</span> 29 valoraciones en Uber Eats</div>
-                </div>
-            </article>
+        <div class="carrusel-wrap">
+            <div class="carrusel-contenedor" id="carruselContenedor">
 
-            <article class="grill-card" data-dish="mixto1">
-                <div class="grill-card-img" style="background-image: url('https://images.unsplash.com/photo-1558030006-450675393462?w=800&q=80');">
-                    <span class="grill-card-num">02</span>
+                <div class="carrusel-imagen actual">
+                    <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=1200&q=80" alt="Costillas de Cerdo" />
+                    <div class="carrusel-texto">
+                        <span class="carrusel-num">01</span>
+                        <h3 class="carrusel-titulo">Costillas de Cerdo</h3>
+                        <p class="carrusel-desc">1 libra de costillas de cerdo a la parrilla.</p>
+                        <div class="carrusel-precio">RD$775</div>
+                        <div class="carrusel-rating"><span class="star">★</span> 29 valoraciones en Uber Eats</div>
+                    </div>
                 </div>
-                <div class="grill-card-body">
-                    <h3 class="grill-card-title">Mixto 1 Persona</h3>
-                    <p class="grill-card-desc">Chuletas + alitas + longaniza + chorizos.</p>
-                    <div class="grill-card-price">RD$775</div>
-                </div>
-            </article>
 
-            <article class="grill-card" data-dish="chuleton">
-                <div class="grill-card-img" style="background-image: url('https://images.unsplash.com/photo-1600891964092-4316c288032e?w=800&q=80');">
-                    <span class="grill-card-num">03</span>
+                <div class="carrusel-imagen">
+                    <img src="https://images.unsplash.com/photo-1558030006-450675393462?w=1200&q=80" alt="Mixto 1 Persona" />
+                    <div class="carrusel-texto">
+                        <span class="carrusel-num">02</span>
+                        <h3 class="carrusel-titulo">Mixto 1 Persona</h3>
+                        <p class="carrusel-desc">Chuletas + alitas + longaniza + chorizos.</p>
+                        <div class="carrusel-precio">RD$775</div>
+                    </div>
                 </div>
-                <div class="grill-card-body">
-                    <h3 class="grill-card-title">Chuletón</h3>
-                    <p class="grill-card-desc">16 oz de cuello de cerdo a la parrilla.</p>
-                    <div class="grill-card-price">RD$675</div>
+
+                <div class="carrusel-imagen">
+                    <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?w=1200&q=80" alt="Chuletón" />
+                    <div class="carrusel-texto">
+                        <span class="carrusel-num">03</span>
+                        <h3 class="carrusel-titulo">Chuletón</h3>
+                        <p class="carrusel-desc">16 oz de cuello de cerdo a la parrilla.</p>
+                        <div class="carrusel-precio">RD$675</div>
+                    </div>
                 </div>
-            </article>
 
-            <article class="grill-card" data-dish="pescado">
-                <div class="grill-card-img" style="background-image: url('https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=800&q=80');">
-                    <span class="grill-card-num">04</span>
+                <div class="carrusel-imagen">
+                    <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=1200&q=80" alt="Filete de Pescado" />
+                    <div class="carrusel-texto">
+                        <span class="carrusel-num">04</span>
+                        <h3 class="carrusel-titulo">Filete de Pescado</h3>
+                        <p class="carrusel-desc">Filete de tilapia importado.</p>
+                        <div class="carrusel-precio">RD$670</div>
+                    </div>
                 </div>
-                <div class="grill-card-body">
-                    <h3 class="grill-card-title">Filete de Pescado</h3>
-                    <p class="grill-card-desc">Filete de tilapia importado.</p>
-                    <div class="grill-card-price">RD$670</div>
+
+                <div class="carrusel-imagen">
+                    <img src="https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=1200&q=80" alt="Muslo de Pollo BBQ" />
+                    <div class="carrusel-texto">
+                        <span class="carrusel-num">05</span>
+                        <h3 class="carrusel-titulo">Muslo de Pollo BBQ</h3>
+                        <p class="carrusel-desc">Muslos a la parrilla con BBQ o sin BBQ.</p>
+                        <div class="carrusel-precio">RD$675</div>
+                    </div>
                 </div>
-            </article>
 
-            <article class="grill-card" data-dish="pollo">
-                <div class="grill-card-img" style="background-image: url('https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=800&q=80');">
-                    <span class="grill-card-num">05</span>
+                <a href="#" class="carrusel-flecha carrusel-anterior" onclick="carruselAnterior(); return false;" aria-label="Anterior">&#10094;</a>
+                <a href="#" class="carrusel-flecha carrusel-siguiente" onclick="carruselSiguiente(); return false;" aria-label="Siguiente">&#10095;</a>
+
+                <button class="carrusel-play" id="carruselBtn" onclick="carruselPlayPause();" aria-label="Play/Pause">
+                    <span id="carruselPlayIcon">❚❚</span>
+                </button>
+
+                <div class="carrusel-puntos">
+                    <span class="carrusel-punto activo" onclick="carruselMostrar(0);"></span>
+                    <span class="carrusel-punto" onclick="carruselMostrar(1);"></span>
+                    <span class="carrusel-punto" onclick="carruselMostrar(2);"></span>
+                    <span class="carrusel-punto" onclick="carruselMostrar(3);"></span>
+                    <span class="carrusel-punto" onclick="carruselMostrar(4);"></span>
                 </div>
-                <div class="grill-card-body">
-                    <h3 class="grill-card-title">Muslo de Pollo BBQ</h3>
-                    <p class="grill-card-desc">Muslos a la parrilla con BBQ o sin BBQ.</p>
-                    <div class="grill-card-price">RD$675</div>
-                </div>
-            </article>
-        </div>
-        <div class="scroll-hint">← Desliza para explorar →</div>
-    </section>
 
-    <!-- MODAL DE PLATO -->
-    <div class="dish-modal" id="dishModal">
-        <div class="dish-modal-overlay" id="dishModalOverlay"></div>
-        <div class="dish-modal-content">
-            <button class="dish-modal-close" id="dishModalClose" aria-label="Cerrar">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                    <path d="M18 6L6 18M6 6l12 12"/>
-                </svg>
-            </button>
-
-            <div class="dish-modal-img" id="dishModalImg"></div>
-
-            <div class="dish-modal-body">
-                <span class="dish-modal-num" id="dishModalNum"></span>
-                <h3 class="dish-modal-title" id="dishModalTitle"></h3>
-                <p class="dish-modal-desc" id="dishModalDesc"></p>
-
-                <div class="dish-modal-meta" id="dishModalMeta"></div>
-
-                <div class="dish-modal-footer">
-                    <div class="dish-modal-price" id="dishModalPrice"></div>
-                    <a href="#cta" class="btn btn-primary dish-modal-order" id="dishModalOrder">Pedir Ahora</a>
-                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- SIGNATURE -->
-    <section id="signature">
-        <div class="signature-bg" id="signatureBg" style="background-image: url('https://images.unsplash.com/photo-1544025162-d76694265947?w=1920&q=80');"></div>
-        <div class="signature-overlay"></div>
-        <div class="signature-content">
-            <div class="signature-label reveal-blur">Signature</div>
-            <h2 class="signature-title reveal-blur">COSTILLAS DE CERDO</h2>
-            <div class="signature-price signature-fade">RD$775</div>
-            <div class="signature-meta signature-fade">1 LB · GRILLED · BBQ</div>
-            <a href="#cta" class="btn btn-primary signature-fade">Order</a>
+    <!-- ============================================
+         EXPERIENCE — SCROLL CINEMATOGRÁFICO (3 en 1)
+         ============================================ -->
+    <section id="experience-3d" class="exp-pin-section">
+        <div class="exp-scroll-track" id="expScrollTrack">
+            <div class="exp-viewport" id="expViewport">
+
+                <video
+                    class="exp-video"
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="auto"
+                    poster="images/experiencia-fuego-poster.jpg">
+                    <source src="videos/experiencia-fuego.mp4" type="video/mp4">
+                    <source src="videos/experiencia-fuego.webm" type="video/webm">
+                </video>
+
+                <div class="exp-overlay"></div>
+
+                <div class="exp-sparks">
+                    <span class="exp-spark"></span>
+                    <span class="exp-spark"></span>
+                    <span class="exp-spark"></span>
+                    <span class="exp-spark"></span>
+                    <span class="exp-spark"></span>
+                    <span class="exp-spark"></span>
+                    <span class="exp-spark"></span>
+                    <span class="exp-spark"></span>
+                    <span class="exp-spark"></span>
+                    <span class="exp-spark"></span>
+                    <span class="exp-spark"></span>
+                    <span class="exp-spark"></span>
+                </div>
+
+                <!-- Escena 1 — Fuego -->
+                <div class="exp-scene exp-scene-1" id="expScene1">
+                    <span class="exp-label">La Experiencia</span>
+                    <h2 class="exp-title">EL FUEGO<br>QUE NOS DEFINE.</h2>
+                    <p class="exp-desc">Cada plato nace del carbón, la llama y la paciencia. No hay atajos. Solo fuego, carne y sabor.</p>
+                </div>
+
+                <!-- Escena 2 — Signature -->
+                <div class="exp-scene exp-scene-2" id="expScene2">
+                    <div class="exp-signature-bg" style="background-image: url('https://images.unsplash.com/photo-1544025162-d76694265947?w=1920&q=80');"></div>
+                    <div class="exp-signature-overlay"></div>
+                    <div class="exp-signature-content">
+                        <span class="exp-label">Signature</span>
+                        <h2 class="exp-title">COSTILLAS<br>DE CERDO.</h2>
+                        <div class="exp-price">RD$775</div>
+                        <div class="exp-meta">1 LB · GRILLED · BBQ</div>
+                    </div>
+                </div>
+
+                <!-- Escena 3 — CTA -->
+                <div class="exp-scene exp-scene-3" id="expScene3">
+                    <div class="exp-cta-bg" style="background-image: url('https://images.unsplash.com/photo-1558030006-450675393462?w=1920&q=80');"></div>
+                    <div class="exp-cta-overlay"></div>
+                    <div class="exp-cta-content">
+                        <span class="exp-label">Hungry?</span>
+                        <h2 class="exp-title">LET'S MAKE IT<br><em>GRILLED.</em></h2>
+                        <a href="https://wa.me/18295890707?text=Hola%20Manny's%20Grill,%20quiero%20hacer%20un%20pedido" target="_blank" rel="noopener" class="btn btn-primary">Pedir Ahora</a>
+                    </div>
+                </div>
+
+                <!-- Barra de progreso -->
+                <div class="exp-progress-bar" id="expProgressBar">
+                    <div class="exp-progress-fill" id="expProgressFill"></div>
+                </div>
+
+                <!-- Etiquetas de escena -->
+                <div class="exp-progress-label" id="expProgressLabel">
+                    <span class="exp-progress-text">El Fuego</span>
+                </div>
+
+            </div>
         </div>
     </section>
 
-    <!-- MENU -->
+    <!-- ============================================
+         MENU — Con miniaturas y badges
+         ============================================ -->
     <section id="menu" class="section">
         <div class="container">
             <div class="menu-header reveal">
@@ -234,26 +291,28 @@
         </div>
 
         <div class="container">
-            <!-- PLATOS -->
             <div class="menu-category" id="platos">
                 <h3 class="menu-category-title">Platos</h3>
                 <p class="menu-category-desc">Los favoritos de la parrilla.</p>
                 <div class="stagger">
                     <div class="menu-item">
+                        <div class="menu-item-thumb"><img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=200&q=80" alt="Costillas"></div>
                         <div class="menu-item-info">
-                            <div class="menu-item-name">Costillas de cerdo</div>
+                            <div class="menu-item-name">Costillas de cerdo <span class="menu-badge">Más pedido</span></div>
                             <div class="menu-item-desc">1 libra de costillas de cerdo a la parrilla.</div>
                         </div>
                         <div class="menu-item-price">RD$775</div>
                     </div>
                     <div class="menu-item">
+                        <div class="menu-item-thumb"><img src="https://images.unsplash.com/photo-1527477396000-e27163b481c2?w=200&q=80" alt="Alitas"></div>
                         <div class="menu-item-info">
-                            <div class="menu-item-name">Alitas de pollo</div>
+                            <div class="menu-item-name">Alitas de pollo <span class="menu-badge">Picante</span></div>
                             <div class="menu-item-desc">Cinco alitas a la parrilla; picantes, BBQ o normales.</div>
                         </div>
                         <div class="menu-item-price">RD$650</div>
                     </div>
                     <div class="menu-item">
+                        <div class="menu-item-thumb"><img src="https://images.unsplash.com/photo-1558030006-450675393462?w=200&q=80" alt="Mixto 1"></div>
                         <div class="menu-item-info">
                             <div class="menu-item-name">Mixto 1 persona</div>
                             <div class="menu-item-desc">Chuletas, alitas, longaniza y chorizos.</div>
@@ -261,20 +320,23 @@
                         <div class="menu-item-price">RD$775</div>
                     </div>
                     <div class="menu-item">
+                        <div class="menu-item-thumb"><img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?w=200&q=80" alt="Chuletón"></div>
                         <div class="menu-item-info">
-                            <div class="menu-item-name">Chuletón</div>
+                            <div class="menu-item-name">Chuletón <span class="menu-badge">Premium</span></div>
                             <div class="menu-item-desc">16 oz de cuello de cerdo a la parrilla.</div>
                         </div>
                         <div class="menu-item-price">RD$675</div>
                     </div>
                     <div class="menu-item">
+                        <div class="menu-item-thumb"><img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=200&q=80" alt="Pescado"></div>
                         <div class="menu-item-info">
-                            <div class="menu-item-name">Filete de pescado</div>
+                            <div class="menu-item-name">Filete de pescado <span class="menu-badge">Del mar</span></div>
                             <div class="menu-item-desc">Filete de tilapia importado.</div>
                         </div>
                         <div class="menu-item-price">RD$670</div>
                     </div>
                     <div class="menu-item">
+                        <div class="menu-item-thumb"><img src="https://images.unsplash.com/photo-1432139555190-58524dae6a55?w=200&q=80" alt="Filete cerdo"></div>
                         <div class="menu-item-info">
                             <div class="menu-item-name">Filete de cerdo</div>
                             <div class="menu-item-desc">Lomo de cerdo a la parrilla.</div>
@@ -282,6 +344,7 @@
                         <div class="menu-item-price">RD$745</div>
                     </div>
                     <div class="menu-item">
+                        <div class="menu-item-thumb"><img src="https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=200&q=80" alt="Muslo BBQ"></div>
                         <div class="menu-item-info">
                             <div class="menu-item-name">Muslo de pollo BBQ</div>
                             <div class="menu-item-desc">Muslos de pollo a la parrilla con BBQ o sin BBQ.</div>
@@ -289,6 +352,7 @@
                         <div class="menu-item-price">RD$675</div>
                     </div>
                     <div class="menu-item">
+                        <div class="menu-item-thumb"><img src="https://images.unsplash.com/photo-1532550907401-a500c9a57435?w=200&q=80" alt="Pechugas"></div>
                         <div class="menu-item-info">
                             <div class="menu-item-name">Pechugas BBQ</div>
                             <div class="menu-item-desc">Pechugas jugosas a la parrilla.</div>
@@ -296,6 +360,7 @@
                         <div class="menu-item-price">RD$650</div>
                     </div>
                     <div class="menu-item">
+                        <div class="menu-item-thumb"><img src="https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=200&q=80" alt="Chuletas"></div>
                         <div class="menu-item-info">
                             <div class="menu-item-name">Chuletas de cerdo</div>
                             <div class="menu-item-desc">16 oz de chuletas frescas a la parrilla.</div>
@@ -305,12 +370,12 @@
                 </div>
             </div>
 
-            <!-- MIXTOS -->
             <div class="menu-category" id="mixtos">
                 <h3 class="menu-category-title">Mixtos</h3>
                 <p class="menu-category-desc">Para compartir. Parrilladas completas.</p>
                 <div class="stagger">
                     <div class="menu-item menu-item-featured">
+                        <div class="menu-item-thumb"><img src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=200&q=80" alt="Mixto 2"></div>
                         <div class="menu-item-info">
                             <div class="menu-item-name">Mixto 2</div>
                             <div class="menu-item-desc">Chuleta + chuletón + pollo + chorizo + longaniza.</div>
@@ -318,13 +383,15 @@
                         <div class="menu-item-price">RD$1,400</div>
                     </div>
                     <div class="menu-item menu-item-featured">
+                        <div class="menu-item-thumb"><img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=200&q=80" alt="Mixto 4"></div>
                         <div class="menu-item-info">
-                            <div class="menu-item-name">Mixto 4</div>
+                            <div class="menu-item-name">Mixto 4 <span class="menu-badge">Para compartir</span></div>
                             <div class="menu-item-desc">Costillas + chuleta + chuletón + pollo + chorizos + longaniza. Incluye papas y tostones.</div>
                         </div>
                         <div class="menu-item-price">RD$2,800</div>
                     </div>
                     <div class="menu-item menu-item-featured">
+                        <div class="menu-item-thumb"><img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=200&q=80" alt="Mixto 8"></div>
                         <div class="menu-item-info">
                             <div class="menu-item-name">Mixto 8</div>
                             <div class="menu-item-desc">Servicio familiar.</div>
@@ -332,6 +399,7 @@
                         <div class="menu-item-price">RD$5,000</div>
                     </div>
                     <div class="menu-item menu-item-featured">
+                        <div class="menu-item-thumb"><img src="https://images.unsplash.com/photo-1558030006-450675393462?w=200&q=80" alt="Mixto 12"></div>
                         <div class="menu-item-info">
                             <div class="menu-item-name">Mixto 12</div>
                             <div class="menu-item-desc">Parrillada mixta para compartir.</div>
@@ -341,73 +409,83 @@
                 </div>
             </div>
 
-            <!-- GUARNICIONES -->
             <div class="menu-category" id="guarniciones">
                 <h3 class="menu-category-title">Guarniciones</h3>
                 <div class="stagger">
                     <div class="menu-item">
+                        <div class="menu-item-thumb"><img src="https://images.unsplash.com/photo-1518013431117-eb1465fa5752?w=200&q=80" alt="Papas sazonadas"></div>
                         <div class="menu-item-info"><div class="menu-item-name">Papas sazonadas</div></div>
                         <div class="menu-item-price">RD$225</div>
                     </div>
                     <div class="menu-item">
+                        <div class="menu-item-thumb"><img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=200&q=80" alt="Papas fritas"></div>
                         <div class="menu-item-info"><div class="menu-item-name">Papas fritas</div></div>
                         <div class="menu-item-price">RD$150</div>
                     </div>
                     <div class="menu-item">
+                        <div class="menu-item-thumb"><img src="https://images.unsplash.com/photo-1585325701956-60dd9c8553bc?w=200&q=80" alt="Tostones"></div>
                         <div class="menu-item-info"><div class="menu-item-name">Tostones</div></div>
                         <div class="menu-item-price">RD$150</div>
                     </div>
                     <div class="menu-item">
+                        <div class="menu-item-thumb"><img src="https://images.unsplash.com/photo-1551754655-cd27e38d2076?w=200&q=80" alt="Maíz"></div>
                         <div class="menu-item-info"><div class="menu-item-name">Maíz a la parrilla</div></div>
                         <div class="menu-item-price">RD$150</div>
                     </div>
                 </div>
             </div>
 
-            <!-- SALSAS -->
             <div class="menu-category" id="salsas">
                 <h3 class="menu-category-title">Salsas</h3>
                 <div class="stagger">
                     <div class="menu-item">
+                        <div class="menu-item-thumb"><img src="https://images.unsplash.com/photo-1472476443507-c7a5948772fc?w=200&q=80" alt="Salsa BBQ"></div>
                         <div class="menu-item-info"><div class="menu-item-name">Salsa BBQ</div></div>
                         <div class="menu-item-price">RD$25</div>
                     </div>
                     <div class="menu-item">
+                        <div class="menu-item-thumb"><img src="https://images.unsplash.com/photo-1607013251379-e6eecfffe234?w=200&q=80" alt="Salsa blanca"></div>
                         <div class="menu-item-info"><div class="menu-item-name">Salsa blanca</div></div>
                         <div class="menu-item-price">RD$25</div>
                     </div>
                 </div>
             </div>
 
-            <!-- BEBIDAS -->
             <div class="menu-category" id="bebidas">
                 <h3 class="menu-category-title">Bebidas</h3>
                 <div class="stagger">
                     <div class="menu-item">
+                        <div class="menu-item-thumb"><img src="https://images.unsplash.com/photo-1622597467836-f3285f2131b8?w=200&q=80" alt="Chinola"></div>
                         <div class="menu-item-info"><div class="menu-item-name">Jugo de chinola</div></div>
                         <div class="menu-item-price">RD$135</div>
                     </div>
                     <div class="menu-item">
+                        <div class="menu-item-thumb"><img src="https://images.unsplash.com/photo-1554866585-cd94860890b7?w=200&q=80" alt="Coca Cola"></div>
                         <div class="menu-item-info"><div class="menu-item-name">Coca Cola</div></div>
                         <div class="menu-item-price">RD$65</div>
                     </div>
                     <div class="menu-item">
+                        <div class="menu-item-thumb"><img src="https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=200&q=80" alt="Uva"></div>
                         <div class="menu-item-info"><div class="menu-item-name">Uva</div></div>
                         <div class="menu-item-price">RD$65</div>
                     </div>
                     <div class="menu-item">
+                        <div class="menu-item-thumb"><img src="https://images.unsplash.com/photo-1625772299848-391b6a87d7b3?w=200&q=80" alt="Sprite"></div>
                         <div class="menu-item-info"><div class="menu-item-name">Sprite</div></div>
                         <div class="menu-item-price">RD$65</div>
                     </div>
                     <div class="menu-item">
+                        <div class="menu-item-thumb"><img src="https://images.unsplash.com/photo-1613478223719-2ab802602423?w=200&q=80" alt="Naranja"></div>
                         <div class="menu-item-info"><div class="menu-item-name">Naranja</div></div>
                         <div class="menu-item-price">RD$65</div>
                     </div>
                     <div class="menu-item">
+                        <div class="menu-item-thumb"><img src="https://images.unsplash.com/photo-1581636625402-29b2a704ef13?w=200&q=80" alt="Red Rock"></div>
                         <div class="menu-item-info"><div class="menu-item-name">Red Rock</div></div>
                         <div class="menu-item-price">RD$65</div>
                     </div>
                     <div class="menu-item">
+                        <div class="menu-item-thumb"><img src="https://images.unsplash.com/photo-1548839140-29a749e1cf4d?w=200&q=80" alt="Agua"></div>
                         <div class="menu-item-info"><div class="menu-item-name">Agua</div></div>
                         <div class="menu-item-price">RD$35</div>
                     </div>
@@ -416,34 +494,9 @@
         </div>
     </section>
 
-    <!-- 3D / MOTION SECTION -->
-    <section id="experience-3d">
-        <div class="orb-container" id="orbContainer">
-            <div class="orb-ring"></div>
-            <div class="orb-ring"></div>
-            <div class="orb-ring"></div>
-
-            <div class="smoke smoke-1"></div>
-            <div class="smoke smoke-2"></div>
-            <div class="smoke smoke-3"></div>
-
-            <div class="flame flame-1"></div>
-            <div class="flame flame-2"></div>
-            <div class="flame flame-3"></div>
-            <div class="flame flame-4"></div>
-
-            <div class="orb"></div>
-
-            <div class="spark spark-1" style="--sx: 30px;"></div>
-            <div class="spark spark-2" style="--sx: -25px;"></div>
-            <div class="spark spark-3" style="--sx: 15px;"></div>
-            <div class="spark spark-4" style="--sx: -35px;"></div>
-            <div class="spark spark-5" style="--sx: 40px;"></div>
-            <div class="spark spark-6" style="--sx: -15px;"></div>
-        </div>
-    </section>
-
-    <!-- GALLERY -->
+    <!-- ============================================
+         GALLERY
+         ============================================ -->
     <section id="gallery" class="section">
         <div class="container">
             <div class="gallery-header reveal">
@@ -473,7 +526,9 @@
         </div>
     </section>
 
-    <!-- ABOUT -->
+    <!-- ============================================
+         ABOUT
+         ============================================ -->
     <section id="about" class="section">
         <div class="container">
             <div class="about-grid">
@@ -487,40 +542,91 @@
                     </div>
                 </div>
                 <div class="about-stats stagger">
-                    <div class="about-stat">
-                        <div class="about-stat-num">4.8</div>
-                        <div class="about-stat-label">Google Rating</div>
-                    </div>
-                    <div class="about-stat">
-                        <div class="about-stat-num">152+</div>
-                        <div class="about-stat-label">Reviews</div>
-                    </div>
-                    <div class="about-stat">
-                        <div class="about-stat-num">58</div>
-                        <div class="about-stat-label">Fotos Indexadas</div>
-                    </div>
-                    <div class="about-stat">
-                        <div class="about-stat-num">100%</div>
-                        <div class="about-stat-label">Parrilla</div>
-                    </div>
+                    <div class="about-stat"><div class="about-stat-num">4.8</div><div class="about-stat-label">Google Rating</div></div>
+                    <div class="about-stat"><div class="about-stat-num">152+</div><div class="about-stat-label">Reviews</div></div>
+                    <div class="about-stat"><div class="about-stat-num">58</div><div class="about-stat-label">Fotos Indexadas</div></div>
+                    <div class="about-stat"><div class="about-stat-num">100%</div><div class="about-stat-label">Parrilla</div></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- REVIEWS -->
+    <!-- ============================================
+         REVIEWS — Carrusel + Google CTA
+         ============================================ -->
     <section id="reviews" class="section">
-        <div class="container reveal">
-            <span class="section-label">13 — Reviews</span>
-            <h2 class="section-title">WHAT PEOPLE SAY</h2>
-            <div class="reviews-rating">4.8</div>
-            <div class="reviews-stars">★★★★★</div>
-            <div class="reviews-platform">Google</div>
-            <div class="reviews-count">150+ reviews</div>
+        <div class="container">
+            <div class="reviews-header reveal">
+                <span class="section-label">13 — Reviews</span>
+                <h2 class="section-title">WHAT PEOPLE SAY</h2>
+            </div>
+
+            <div class="reviews-hero reveal">
+                <div class="reviews-rating">4.8</div>
+                <div class="reviews-stars">★★★★★</div>
+                <div class="reviews-platform">Google</div>
+                <div class="reviews-count">152 reviews verificadas</div>
+            </div>
+
+            <!-- Carrusel de testimonios -->
+            <div class="reviews-carousel" id="reviewsCarousel">
+                <div class="review-card">
+                    <div class="review-avatar" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80');"></div>
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Las costillas son otro nivel. Jugosas, ahumadas, con ese sabor que solo logra el carbón. Volveremos seguro."</p>
+                    <div class="review-author">Carlos M.</div>
+                    <div class="review-source">Google Review</div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-avatar" style="background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80');"></div>
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"El Mixto 4 es perfecto para compartir en familia. La atención excelente y el ambiente muy agradable."</p>
+                    <div class="review-author">María F.</div>
+                    <div class="review-source">Google Review</div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-avatar" style="background-image: url('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80');"></div>
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Pedí delivery y llegó rápido, caliente y bien empacado. Las alitas BBQ son mi debilidad."</p>
+                    <div class="review-author">José R.</div>
+                    <div class="review-source">Google Review</div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-avatar" style="background-image: url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80');"></div>
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"El chuletón de 16 oz está increíble. Buen precio, buena porción y ese sabor a parrilla dominicana."</p>
+                    <div class="review-author">Ana P.</div>
+                    <div class="review-source">Google Review</div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-avatar" style="background-image: url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&q=80');"></div>
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Buen lugar para celebrar. El Mixto 8 fue más que suficiente. Servicio atento y ambiente acogedor."</p>
+                    <div class="review-author">Luis T.</div>
+                    <div class="review-source">Google Review</div>
+                </div>
+            </div>
+
+                       <!-- CTA Google Review -->
+            <div class="reviews-cta reveal">
+                <p class="reviews-cta-text">¿Ya probaste Manny's Grill?</p>
+                <a href="https://search.google.com/local/writereview?placeid=ChIJN1IbMYyHr44R0Kq8n7aXAbM" target="_blank" rel="noopener" class="btn btn-outline reviews-cta-btn">
+                    <span>Dejar mi reseña en Google</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M7 17L17 7M17 7H7M17 7v10"/>
+                    </svg>
+                </a>
+            </div>
         </div>
     </section>
 
-    <!-- LOCATION -->
+    <!-- ============================================
+         LOCATION + HOURS (fusionadas)
+         ============================================ -->
     <section id="location" class="section">
         <div class="container">
             <div class="location-grid">
@@ -537,6 +643,20 @@
                     </address>
                     <a href="tel:+18295890707" class="location-phone">+1 829-589-0707</a>
                     <a href="https://maps.google.com/?q=Manny's+Grill+Santo+Domingo+Este" target="_blank" rel="noopener" class="btn btn-primary">Get Directions</a>
+
+                    <!-- Horarios inline -->
+                    <div class="location-hours">
+                        <h4 class="location-hours-title">Horarios</h4>
+                        <div class="hours-grid">
+                            <div class="hours-row"><span class="hours-day">Lun</span><span class="hours-time">5:30 PM — 10:30 PM</span></div>
+                            <div class="hours-row"><span class="hours-day">Mar</span><span class="hours-time hours-closed">Cerrado</span></div>
+                            <div class="hours-row"><span class="hours-day">Mié</span><span class="hours-time">5:30 PM — 10:30 PM</span></div>
+                            <div class="hours-row"><span class="hours-day">Jue</span><span class="hours-time">5:30 PM — 10:30 PM</span></div>
+                            <div class="hours-row"><span class="hours-day">Vie</span><span class="hours-time">5:30 PM — 10:30 PM</span></div>
+                            <div class="hours-row"><span class="hours-day">Sáb</span><span class="hours-time">5:30 PM — 10:30 PM</span></div>
+                            <div class="hours-row"><span class="hours-day">Dom</span><span class="hours-time">1:00 PM — 10:30 PM</span></div>
+                        </div>
+                    </div>
                 </div>
                 <div class="location-map reveal">
                     <iframe
@@ -551,56 +671,9 @@
         </div>
     </section>
 
-    <!-- HOURS -->
-    <section id="hours" class="section-sm">
-        <div class="container reveal">
-            <span class="section-label">15 — Opening Hours</span>
-            <h2 class="section-title">HORARIOS</h2>
-            <div class="hours-grid stagger">
-                <div class="hours-row">
-                    <span class="hours-day">Lun</span>
-                    <span class="hours-time">5:30 PM — 10:30 PM</span>
-                </div>
-                <div class="hours-row">
-                    <span class="hours-day">Mar</span>
-                    <span class="hours-time hours-closed">Cerrado</span>
-                </div>
-                <div class="hours-row">
-                    <span class="hours-day">Mié</span>
-                    <span class="hours-time">5:30 PM — 10:30 PM</span>
-                </div>
-                <div class="hours-row">
-                    <span class="hours-day">Jue</span>
-                    <span class="hours-time">5:30 PM — 10:30 PM</span>
-                </div>
-                <div class="hours-row">
-                    <span class="hours-day">Vie</span>
-                    <span class="hours-time">5:30 PM — 10:30 PM</span>
-                </div>
-                <div class="hours-row">
-                    <span class="hours-day">Sáb</span>
-                    <span class="hours-time">5:30 PM — 10:30 PM</span>
-                </div>
-                <div class="hours-row">
-                    <span class="hours-day">Dom</span>
-                    <span class="hours-time">1:00 PM — 10:30 PM</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FINAL CTA -->
-    <section id="cta">
-        <div class="cta-bg" id="ctaBg" style="background-image: url('https://images.unsplash.com/photo-1558030006-450675393462?w=1920&q=80');"></div>
-        <div class="cta-overlay"></div>
-        <div class="cta-content reveal">
-            <div class="cta-hungry">Hungry?</div>
-            <h2 class="cta-title">LET'S MAKE IT<br><em>GRILLED.</em></h2>
-            <a href="tel:+18295890707" class="btn btn-primary">Pedir Ahora</a>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
     <footer>
         <div class="container">
             <div class="footer-grid">
@@ -613,6 +686,7 @@
                     <ul>
                         <li><a href="tel:+18295890707">829-589-0707</a></li>
                         <li><a href="https://www.instagram.com/manny.grill.07" target="_blank" rel="noopener">@manny.grill.07</a></li>
+                        <li><a href="https://wa.me/18295890707?text=Hola%20Manny's%20Grill" target="_blank" rel="noopener">WhatsApp</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
@@ -641,10 +715,16 @@
     <!-- Mobile CTA Bar -->
     <div class="mobile-cta-bar">
         <span class="brand">MANNY'S GRILL</span>
-        <a href="tel:+18295890707" class="cta-btn">Pedir →</a>
+        <a href="https://wa.me/18295890707?text=Hola%20Manny's%20Grill,%20quiero%20hacer%20un%20pedido" target="_blank" rel="noopener" class="cta-btn">Pedir →</a>
     </div>
 
-    <!-- Back to Top -->
+    <!-- WhatsApp Flotante -->
+    <a href="https://wa.me/18295890707?text=Hola%20Manny's%20Grill,%20quiero%20hacer%20un%20pedido" target="_blank" rel="noopener" class="wa-float" id="waFloat" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+    </a>
+
     <button class="back-to-top" id="backToTop" aria-label="Volver arriba">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 19V5M5 12l7-7 7 7"/>
