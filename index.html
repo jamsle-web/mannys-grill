@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manny's Grill — El Sabor de la Parrilla | Santo Domingo Este</title>
     <meta name="description" content="Manny's Grill — BBQ y parrilla en Santo Domingo Este. Costillas, chuletón, mixtos, pollo, pescado y más. Delivery, para llevar y comer en local.">
-    
+
     <!-- Open Graph -->
     <meta property="og:title" content="Manny's Grill — El Sabor de la Parrilla">
     <meta property="og:description" content="BBQ y parrilla en Santo Domingo Este. Costillas, chuletón, mixtos y más.">
@@ -48,9 +48,7 @@
 </head>
 <body class="loading">
 
-    <!-- ============================================
-         LOADING SCREEN
-         ============================================ -->
+    <!-- LOADING SCREEN -->
     <div id="loader">
         <div class="loader-logo">
             <div class="brand">
@@ -62,9 +60,7 @@
         <div class="loader-line"></div>
     </div>
 
-    <!-- ============================================
-         NAVIGATION
-         ============================================ -->
+    <!-- NAVIGATION -->
     <nav id="navbar">
         <div class="container nav-inner">
             <a href="#" class="nav-logo">MANNY'S <span>GRILL</span></a>
@@ -92,9 +88,7 @@
         <a href="#cta" class="mobile-cta">Pedir Ahora</a>
     </div>
 
-    <!-- ============================================
-         HERO
-         ============================================ -->
+    <!-- HERO -->
     <section id="hero">
         <div class="hero-bg" id="heroBg" style="background-image: url('https://images.unsplash.com/photo-1544025162-d76694265947?w=1920&q=80');"></div>
         <div class="hero-overlay"></div>
@@ -113,9 +107,7 @@
         </div>
     </section>
 
-    <!-- ============================================
-         THE GRILL
-         ============================================ -->
+    <!-- THE GRILL -->
     <section id="grill" class="section">
         <div class="grill-header reveal">
             <span class="section-label">04 — The Grill</span>
@@ -124,7 +116,7 @@
         </div>
 
         <div class="horizontal-track" id="grillTrack">
-            <article class="grill-card">
+            <article class="grill-card" data-dish="costillas">
                 <div class="grill-card-img" style="background-image: url('https://images.unsplash.com/photo-1544025162-d76694265947?w=800&q=80');">
                     <span class="grill-card-num">01</span>
                 </div>
@@ -136,7 +128,7 @@
                 </div>
             </article>
 
-            <article class="grill-card">
+            <article class="grill-card" data-dish="mixto1">
                 <div class="grill-card-img" style="background-image: url('https://images.unsplash.com/photo-1558030006-450675393462?w=800&q=80');">
                     <span class="grill-card-num">02</span>
                 </div>
@@ -147,7 +139,7 @@
                 </div>
             </article>
 
-            <article class="grill-card">
+            <article class="grill-card" data-dish="chuleton">
                 <div class="grill-card-img" style="background-image: url('https://images.unsplash.com/photo-1600891964092-4316c288032e?w=800&q=80');">
                     <span class="grill-card-num">03</span>
                 </div>
@@ -158,7 +150,7 @@
                 </div>
             </article>
 
-            <article class="grill-card">
+            <article class="grill-card" data-dish="pescado">
                 <div class="grill-card-img" style="background-image: url('https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=800&q=80');">
                     <span class="grill-card-num">04</span>
                 </div>
@@ -169,7 +161,7 @@
                 </div>
             </article>
 
-            <article class="grill-card">
+            <article class="grill-card" data-dish="pollo">
                 <div class="grill-card-img" style="background-image: url('https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=800&q=80');">
                     <span class="grill-card-num">05</span>
                 </div>
@@ -183,9 +175,34 @@
         <div class="scroll-hint">← Desliza para explorar →</div>
     </section>
 
-    <!-- ============================================
-         SIGNATURE
-         ============================================ -->
+    <!-- MODAL DE PLATO -->
+    <div class="dish-modal" id="dishModal">
+        <div class="dish-modal-overlay" id="dishModalOverlay"></div>
+        <div class="dish-modal-content">
+            <button class="dish-modal-close" id="dishModalClose" aria-label="Cerrar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+
+            <div class="dish-modal-img" id="dishModalImg"></div>
+
+            <div class="dish-modal-body">
+                <span class="dish-modal-num" id="dishModalNum"></span>
+                <h3 class="dish-modal-title" id="dishModalTitle"></h3>
+                <p class="dish-modal-desc" id="dishModalDesc"></p>
+
+                <div class="dish-modal-meta" id="dishModalMeta"></div>
+
+                <div class="dish-modal-footer">
+                    <div class="dish-modal-price" id="dishModalPrice"></div>
+                    <a href="#cta" class="btn btn-primary dish-modal-order" id="dishModalOrder">Pedir Ahora</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SIGNATURE -->
     <section id="signature">
         <div class="signature-bg" id="signatureBg" style="background-image: url('https://images.unsplash.com/photo-1544025162-d76694265947?w=1920&q=80');"></div>
         <div class="signature-overlay"></div>
@@ -198,9 +215,7 @@
         </div>
     </section>
 
-    <!-- ============================================
-         MENU
-         ============================================ -->
+    <!-- MENU -->
     <section id="menu" class="section">
         <div class="container">
             <div class="menu-header reveal">
@@ -401,32 +416,24 @@
         </div>
     </section>
 
-    <!-- ============================================
-         3D / MOTION SECTION
-         ============================================ -->
+    <!-- 3D / MOTION SECTION -->
     <section id="experience-3d">
         <div class="orb-container" id="orbContainer">
-
-            <!-- Rings -->
             <div class="orb-ring"></div>
             <div class="orb-ring"></div>
             <div class="orb-ring"></div>
 
-            <!-- Smoke -->
             <div class="smoke smoke-1"></div>
             <div class="smoke smoke-2"></div>
             <div class="smoke smoke-3"></div>
 
-            <!-- Flames -->
             <div class="flame flame-1"></div>
             <div class="flame flame-2"></div>
             <div class="flame flame-3"></div>
             <div class="flame flame-4"></div>
 
-            <!-- Fire core -->
             <div class="orb"></div>
 
-            <!-- Sparks -->
             <div class="spark spark-1" style="--sx: 30px;"></div>
             <div class="spark spark-2" style="--sx: -25px;"></div>
             <div class="spark spark-3" style="--sx: 15px;"></div>
@@ -436,9 +443,7 @@
         </div>
     </section>
 
-    <!-- ============================================
-         GALLERY
-         ============================================ -->
+    <!-- GALLERY -->
     <section id="gallery" class="section">
         <div class="container">
             <div class="gallery-header reveal">
@@ -468,9 +473,7 @@
         </div>
     </section>
 
-    <!-- ============================================
-         ABOUT
-         ============================================ -->
+    <!-- ABOUT -->
     <section id="about" class="section">
         <div class="container">
             <div class="about-grid">
@@ -505,9 +508,7 @@
         </div>
     </section>
 
-    <!-- ============================================
-         REVIEWS
-         ============================================ -->
+    <!-- REVIEWS -->
     <section id="reviews" class="section">
         <div class="container reveal">
             <span class="section-label">13 — Reviews</span>
@@ -519,9 +520,7 @@
         </div>
     </section>
 
-    <!-- ============================================
-         LOCATION
-         ============================================ -->
+    <!-- LOCATION -->
     <section id="location" class="section">
         <div class="container">
             <div class="location-grid">
@@ -552,9 +551,7 @@
         </div>
     </section>
 
-    <!-- ============================================
-         HOURS
-         ============================================ -->
+    <!-- HOURS -->
     <section id="hours" class="section-sm">
         <div class="container reveal">
             <span class="section-label">15 — Opening Hours</span>
@@ -592,9 +589,7 @@
         </div>
     </section>
 
-    <!-- ============================================
-         FINAL CTA
-         ============================================ -->
+    <!-- FINAL CTA -->
     <section id="cta">
         <div class="cta-bg" id="ctaBg" style="background-image: url('https://images.unsplash.com/photo-1558030006-450675393462?w=1920&q=80');"></div>
         <div class="cta-overlay"></div>
@@ -605,9 +600,7 @@
         </div>
     </section>
 
-    <!-- ============================================
-         FOOTER
-         ============================================ -->
+    <!-- FOOTER -->
     <footer>
         <div class="container">
             <div class="footer-grid">
