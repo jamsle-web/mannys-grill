@@ -1,15 +1,116 @@
+/* ============================================
+   CARRUSEL — THE GRILL (global)
+   ============================================ */
+var carruselActual = 0;
+var carruselTotal = 5;
+var carruselVelocidad = 4000;
+var carruselPlay = null;
+var carruselPausado = false;
+
+function carruselPuntos(n) {
+    var ptn = document.getElementsByClassName('carrusel-punto');
+    for (var i = 0; i < ptn.length; i++) {
+        ptn[i].className = ptn[i].className.replace('activo', '').replace(/\s+/g, ' ').trim();
+    }
+    if (ptn[n]) ptn[n].className += ' activo';
+}
+
+function carruselMostrar(n) {
+    var imagenes = document.getElementsByClassName('carrusel-imagen');
+    for (var i = 0; i < imagenes.length; i++) {
+        imagenes[i].className = imagenes[i].className.replace('actual', '').replace(/\s+/g, ' ').trim();
+    }
+    carruselActual = n;
+    if (imagenes[n]) imagenes[n].className += ' actual';
+    carruselPuntos(n);
+}
+
+function carruselSiguiente() {
+    carruselActual++;
+    if (carruselActual >= carruselTotal) carruselActual = 0;
+    carruselMostrar(carruselActual);
+}
+
+function carruselAnterior() {
+    carruselActual--;
+    if (carruselActual < 0) carruselActual = carruselTotal - 1;
+    carruselMostrar(carruselActual);
+}
+
+function carruselIniciar() {
+    if (carruselPlay) clearInterval(carruselPlay);
+    carruselPlay = setInterval(carruselSiguiente, carruselVelocidad);
+    carruselPausado = false;
+    var icon = document.getElementById('carruselPlayIcon');
+    if (icon) icon.textContent = '❚❚';
+}
+
+function carruselPausar() {
+    if (carruselPlay) {
+        clearInterval(carruselPlay);
+        carruselPlay = null;
+    }
+    carruselPausado = true;
+    var icon = document.getElementById('carruselPlayIcon');
+    if (icon) icon.textContent = '▶';
+}
+
+function carruselPlayPause() {
+    if (carruselPausado) carruselIniciar();
+    else carruselPausar();
+}
+
+/* ============================================
+   REVIEWS CARRUSEL
+   ============================================ */
+var reviewsActual = 0;
+var reviewsCards = [];
+var reviewsAuto = null;
+
+function reviewsInit() {
+    reviewsCards = document.querySelectorAll('.review-card');
+    if (reviewsCards.length === 0) return;
+    reviewsMostrar(0);
+    reviewsAutoPlay();
+}
+
+function reviewsMostrar(n) {
+    reviewsCards.forEach(function(card, i) {
+        card.classList.remove('active', 'prev', 'next');
+    });
+
+    var total = reviewsCards.length;
+    reviewsActual = (n + total) % total;
+
+    reviewsCards.forEach(function(card, i) {
+        var diff = i - reviewsActual;
+        if (diff > total / 2) diff -= total;
+        if (diff < -total / 2) diff += total;
+
+        if (diff === 0) card.classList.add('active');
+        else if (diff === -1) card.classList.add('prev');
+        else if (diff === 1) card.classList.add('next');
+    });
+}
+
+function reviewsSiguiente() {
+    reviewsMostrar(reviewsActual + 1);
+}
+
+function reviewsAutoPlay() {
+    if (reviewsAuto) clearInterval(reviewsAuto);
+    reviewsAuto = setInterval(reviewsSiguiente, 5000);
+}
+
+/* ============================================
+   IIFE PRINCIPAL
+   ============================================ */
 (function() {
     'use strict';
 
-    /* ============================================
-       VARIABLES GLOBALES
-       ============================================ */
     var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var track = document.getElementById('grillTrack');
 
-    /* ============================================
-       LOADING
-       ============================================ */
+    /* LOADING */
     window.addEventListener('load', function() {
         setTimeout(function() {
             document.getElementById('loader').classList.add('hidden');
@@ -17,23 +118,21 @@
         }, 2400);
     });
 
-    /* ============================================
-       NAVBAR SCROLL
-       ============================================ */
+    /* NAVBAR SCROLL */
     var navbar = document.getElementById('navbar');
     var backToTop = document.getElementById('backToTop');
+    var waFloat = document.getElementById('waFloat');
 
     function onScroll() {
         var y = window.scrollY;
         navbar.classList.toggle('scrolled', y > 60);
         backToTop.classList.toggle('visible', y > 800);
+        if (waFloat) waFloat.classList.toggle('visible', y > 400);
     }
-
     window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
 
-    /* ============================================
-       MOBILE MENU
-       ============================================ */
+    /* MOBILE MENU */
     var toggle = document.querySelector('.nav-toggle');
     var mobileMenu = document.getElementById('mobileMenu');
 
@@ -53,13 +152,11 @@
         });
     });
 
-    /* ============================================
-       HERO PARALLAX
-       ============================================ */
+    /* HERO PARALLAX */
     var heroBg = document.getElementById('heroBg');
     var hero = document.getElementById('hero');
 
-    if (!prefersReduced) {
+    if (!prefersReduced && hero && heroBg) {
         hero.addEventListener('mousemove', function(e) {
             var x = (e.clientX / window.innerWidth - 0.5) * 20;
             var y = (e.clientY / window.innerHeight - 0.5) * 20;
@@ -79,11 +176,8 @@
         }, { passive: true });
     }
 
-    /* ============================================
-       REVEAL ON SCROLL
-       ============================================ */
+    /* REVEAL ON SCROLL */
     var revealElements = document.querySelectorAll('.reveal, .reveal-blur, .stagger');
-
     var revealObserver = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
             if (entry.isIntersecting) {
@@ -91,53 +185,10 @@
                 revealObserver.unobserve(entry.target);
             }
         });
-    }, {
-        threshold: 0.12,
-        rootMargin: '0px 0px -60px 0px'
-    });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+    revealElements.forEach(function(el) { revealObserver.observe(el); });
 
-    revealElements.forEach(function(el) {
-        revealObserver.observe(el);
-    });
-
-    /* ============================================
-       SIGNATURE BG SCALE
-       ============================================ */
-    var signatureBg = document.getElementById('signatureBg');
-    var signatureSection = document.getElementById('signature');
-
-    var sigObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-            if (entry.isIntersecting) {
-                signatureBg.classList.add('in-view');
-                signatureSection.querySelectorAll('.reveal-blur, .signature-fade').forEach(function(el) {
-                    el.classList.add('visible');
-                });
-            }
-        });
-    }, { threshold: 0.3 });
-
-    sigObserver.observe(signatureSection);
-
-    /* ============================================
-       CTA BG REVEAL
-       ============================================ */
-    var ctaBg = document.getElementById('ctaBg');
-    var ctaSection = document.getElementById('cta');
-
-    var ctaObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-            if (entry.isIntersecting) {
-                ctaBg.classList.add('visible');
-            }
-        });
-    }, { threshold: 0.2 });
-
-    ctaObserver.observe(ctaSection);
-
-    /* ============================================
-       MENU TABS
-       ============================================ */
+    /* MENU TABS */
     var menuTabs = document.querySelectorAll('.menu-tab');
     var menuCategories = document.querySelectorAll('.menu-category');
 
@@ -145,13 +196,10 @@
         tab.addEventListener('click', function() {
             var targetId = this.getAttribute('data-target');
             var target = document.getElementById(targetId);
-
             menuTabs.forEach(function(t) { t.classList.remove('active'); });
             this.classList.add('active');
-
             if (target) {
-                var offset = 140;
-                var top = target.getBoundingClientRect().top + window.scrollY - offset;
+                var top = target.getBoundingClientRect().top + window.scrollY - 140;
                 window.scrollTo({ top: top, behavior: 'smooth' });
             }
         });
@@ -166,105 +214,24 @@
                 });
             }
         });
-    }, {
-        threshold: 0.3,
-        rootMargin: '-140px 0px -50% 0px'
-    });
+    }, { threshold: 0.3, rootMargin: '-140px 0px -50% 0px' });
+    menuCategories.forEach(function(cat) { menuObserver.observe(cat); });
 
-    menuCategories.forEach(function(cat) {
-        menuObserver.observe(cat);
-    });
-
-    /* ============================================
-       HORIZONTAL DRAG SCROLL
-       ============================================ */
-    var isDown = false;
-    var startX, scrollLeft;
-
-    track.addEventListener('mousedown', function(e) {
-        isDown = true;
-        track.classList.add('grabbing');
-        startX = e.pageX - track.offsetLeft;
-        scrollLeft = track.scrollLeft;
-    });
-
-    track.addEventListener('mouseleave', function() {
-        isDown = false;
-        track.classList.remove('grabbing');
-    });
-
-    track.addEventListener('mouseup', function() {
-        isDown = false;
-        track.classList.remove('grabbing');
-    });
-
-    track.addEventListener('mousemove', function(e) {
-        if (!isDown) return;
-        e.preventDefault();
-        var x = e.pageX - track.offsetLeft;
-        var walk = (x - startX) * 1.5;
-        track.scrollLeft = scrollLeft - walk;
-    });
-
-    var touchStartX = 0;
-    var touchScrollLeft = 0;
-
-    track.addEventListener('touchstart', function(e) {
-        touchStartX = e.touches[0].pageX;
-        touchScrollLeft = track.scrollLeft;
-    }, { passive: true });
-
-    track.addEventListener('touchmove', function(e) {
-        var x = e.touches[0].pageX;
-        var walk = (touchStartX - x) * 1.5;
-        track.scrollLeft = touchScrollLeft + walk;
-    }, { passive: true });
-
-    /* ============================================
-       BACK TO TOP
-       ============================================ */
+    /* BACK TO TOP */
     backToTop.addEventListener('click', function() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    /* ============================================
-       3D ORB PARALLAX + MOUSE DEPTH
-       ============================================ */
-    if (!prefersReduced) {
-        var orbContainer = document.getElementById('orbContainer');
-        var orbSection = document.getElementById('experience-3d');
-
-        window.addEventListener('scroll', function() {
-            var rect = orbSection.getBoundingClientRect();
-            var progress = 1 - (rect.top / window.innerHeight);
-            if (progress > -0.5 && progress < 1.5) {
-                var translateY = (progress - 0.5) * 60;
-                var rotate = (progress - 0.5) * 12;
-                orbContainer.style.transform =
-                    'translateY(' + translateY + 'px) rotate(' + rotate + 'deg)';
-            }
-        }, { passive: true });
-
-        if (window.matchMedia('(hover: hover)').matches) {
-            orbSection.addEventListener('mousemove', function(e) {
-                var rect = orbSection.getBoundingClientRect();
-                var x = (e.clientX - rect.left) / rect.width - 0.5;
-                var y = (e.clientY - rect.top) / rect.height - 0.5;
-                var tiltX = y * 12;
-                var tiltY = x * 12;
-                orbContainer.style.transform =
-                    'perspective(900px) rotateX(' + tiltX + 'deg) rotateY(' + tiltY + 'deg)';
-            });
-
-            orbSection.addEventListener('mouseleave', function() {
-                orbContainer.style.transform = 'perspective(900px) rotateX(0) rotateY(0)';
-            });
+    /* VIDEO — control de rendimiento */
+    var expVideo = document.querySelector('.exp-video');
+    if (expVideo) {
+        if (prefersReduced) {
+            expVideo.pause();
+            expVideo.removeAttribute('autoplay');
         }
     }
 
-    /* ============================================
-       MAGNETIC BUTTON (Desktop only)
-       ============================================ */
+    /* MAGNETIC BUTTON */
     if (!prefersReduced && window.matchMedia('(hover: hover)').matches) {
         document.querySelectorAll('.btn-primary').forEach(function(btn) {
             btn.addEventListener('mousemove', function(e) {
@@ -273,16 +240,13 @@
                 var y = e.clientY - rect.top - rect.height / 2;
                 btn.style.transform = 'translate(' + (x * 0.15) + 'px, ' + (y * 0.15) + 'px)';
             });
-
             btn.addEventListener('mouseleave', function() {
                 btn.style.transform = 'translate(0, 0)';
             });
         });
     }
 
-    /* ============================================
-       SMOOTH ANCHOR SCROLL
-       ============================================ */
+    /* SMOOTH ANCHOR SCROLL */
     document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
         anchor.addEventListener('click', function(e) {
             var targetId = this.getAttribute('href');
@@ -290,142 +254,76 @@
             var target = document.querySelector(targetId);
             if (target) {
                 e.preventDefault();
-                var offset = 80;
-                var top = target.getBoundingClientRect().top + window.scrollY - offset;
+                var top = target.getBoundingClientRect().top + window.scrollY - 80;
                 window.scrollTo({ top: top, behavior: 'smooth' });
             }
         });
     });
 
-    /* ============================================
-       AUTO-SCROLL CARRUSEL
-       ============================================ */
-    var autoScrollPaused = false;
-    var autoScrollSpeed = 0.5;
-
-    function autoScrollLoop() {
-        if (!autoScrollPaused && track) {
-            track.scrollLeft += autoScrollSpeed;
-
-            if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 1) {
-                track.scrollLeft = 0;
-            }
+    /* CARRUSEL */
+    if (!prefersReduced) {
+        carruselIniciar();
+        var contenedor = document.getElementById('carruselContenedor');
+        if (contenedor) {
+            contenedor.addEventListener('mouseenter', carruselPausar);
+            contenedor.addEventListener('mouseleave', function() {
+                if (!carruselPausado) carruselIniciar();
+            });
         }
-        requestAnimationFrame(autoScrollLoop);
     }
 
-    if (!prefersReduced && window.matchMedia('(min-width: 769px)').matches) {
-        requestAnimationFrame(autoScrollLoop);
-    }
-
-    ['mouseenter', 'touchstart', 'mousedown'].forEach(function(evt) {
-        track.addEventListener(evt, function() { autoScrollPaused = true; });
-    });
-
-    ['mouseleave', 'touchend', 'mouseup'].forEach(function(evt) {
-        track.addEventListener(evt, function() {
-            setTimeout(function() { autoScrollPaused = false; }, 1500);
-        });
-    });
+    /* REVIEWS CARRUSEL */
+    reviewsInit();
 
     /* ============================================
-       MODAL DE PLATO
+       EXPERIENCE — SCROLL CINEMATOGRÁFICO
        ============================================ */
-    var dishesData = {
-        costillas: {
-            num: '01 — Signature',
-            title: 'Costillas de Cerdo',
-            desc: '1 libra de costillas de cerdo a la parrilla, cocinadas lentamente para lograr ese sabor ahumado y esa textura que se deshace. Acompañadas de salsa BBQ de la casa.',
-            meta: ['1 Libra', 'A la Parrilla', 'BBQ', 'Para Compartir'],
-            price: 'RD$775',
-            img: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=1200&q=80'
-        },
-        mixto1: {
-            num: '02 — Para Uno',
-            title: 'Mixto 1 Persona',
-            desc: 'La combinación perfecta para un solo comensal: chuletas, alitas, longaniza y chorizos a la parrilla. Una muestra completa de nuestro fuego.',
-            meta: ['1 Persona', 'Chuletas', 'Alitas', 'Longaniza', 'Chorizos'],
-            price: 'RD$775',
-            img: 'https://images.unsplash.com/photo-1558030006-450675393462?w=1200&q=80'
-        },
-        chuleton: {
-            num: '03 — Corte Premium',
-            title: 'Chuletón',
-            desc: '16 oz de cuello de cerdo a la parrilla. Un corte grueso, jugoso por dentro y con esa costra dorada por fuera que solo el carbón puede dar.',
-            meta: ['16 oz', 'Cuello de Cerdo', 'A la Parrilla', 'Jugoso'],
-            price: 'RD$675',
-            img: 'https://images.unsplash.com/photo-1600891964092-4316c288032e?w=1200&q=80'
-        },
-        pescado: {
-            num: '04 — Del Mar',
-            title: 'Filete de Pescado',
-            desc: 'Filete de tilapia importado, sazonado y a la parrilla. Ligero, fresco y perfecto si buscas algo más suave sin perder el sabor del fuego.',
-            meta: ['Tilapia', 'Importado', 'A la Parrilla', 'Ligero'],
-            price: 'RD$670',
-            img: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=1200&q=80'
-        },
-        pollo: {
-            num: '05 — Clásico',
-            title: 'Muslo de Pollo BBQ',
-            desc: 'Muslos de pollo a la parrilla, marinados y glaseados con nuestra salsa BBQ (o sin BBQ si lo prefieres). Jugosos, ahumados y llenos de sabor.',
-            meta: ['Muslos', 'BBQ o Sin BBQ', 'A la Parrilla', 'Jugoso'],
-            price: 'RD$675',
-            img: 'https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=1200&q=80'
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined' && !prefersReduced) {
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        var expSection = document.querySelector('.exp-pin-section');
+        var expScene1 = document.getElementById('expScene1');
+        var expScene2 = document.getElementById('expScene2');
+        var expScene3 = document.getElementById('expScene3');
+        var expVideoEl = document.querySelector('.exp-video');
+        var progressFill = document.getElementById('expProgressFill');
+        var progressText = document.querySelector('.exp-progress-text');
+
+        if (expSection && expScene1 && expScene2 && expScene3 && expVideoEl) {
+
+            var masterTL = gsap.timeline({
+                scrollTrigger: {
+                    trigger: expSection,
+                    start: 'top top',
+                    end: 'bottom bottom',
+                    scrub: 1,
+                    onUpdate: function(self) {
+                        var p = self.progress;
+                        if (progressFill) progressFill.style.width = (p * 100) + '%';
+                        if (progressText) {
+                            if (p < 0.33) progressText.textContent = 'El Fuego';
+                            else if (p < 0.66) progressText.textContent = 'Signature';
+                            else progressText.textContent = 'Pedir Ahora';
+                        }
+                    }
+                }
+            });
+
+            /* ESCENA 1 → ESCENA 2 */
+            masterTL.to(expVideoEl, { scale: 1.15, duration: 0.33 }, 0);
+            masterTL.to(expScene1, { opacity: 0, y: -60, filter: 'blur(8px)', duration: 0.1 }, 0.25);
+
+            masterTL.set(expScene2, { visibility: 'visible' }, 0.33);
+            masterTL.fromTo(expScene2, { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.1 }, 0.35);
+            masterTL.to(expScene2.querySelector('.exp-signature-bg'), { scale: 1.1, duration: 0.3 }, 0.4);
+            masterTL.to(expScene2, { opacity: 0, y: -60, filter: 'blur(8px)', duration: 0.1 }, 0.58);
+
+            /* ESCENA 2 → ESCENA 3 */
+            masterTL.set(expScene3, { visibility: 'visible' }, 0.66);
+            masterTL.fromTo(expScene3, { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.1 }, 0.68);
+            masterTL.to(expScene3, { opacity: 1, duration: 0.3 }, 0.78);
         }
-    };
-
-    var dishModal = document.getElementById('dishModal');
-    var dishModalOverlay = document.getElementById('dishModalOverlay');
-    var dishModalClose = document.getElementById('dishModalClose');
-    var dishModalImg = document.getElementById('dishModalImg');
-    var dishModalNum = document.getElementById('dishModalNum');
-    var dishModalTitle = document.getElementById('dishModalTitle');
-    var dishModalDesc = document.getElementById('dishModalDesc');
-    var dishModalMeta = document.getElementById('dishModalMeta');
-    var dishModalPrice = document.getElementById('dishModalPrice');
-
-    function openDishModal(dishKey) {
-        var data = dishesData[dishKey];
-        if (!data) return;
-
-        dishModalImg.style.backgroundImage = "url('" + data.img + "')";
-        dishModalNum.textContent = data.num;
-        dishModalTitle.textContent = data.title;
-        dishModalDesc.textContent = data.desc;
-        dishModalPrice.textContent = data.price;
-
-        dishModalMeta.innerHTML = '';
-        data.meta.forEach(function(item) {
-            var span = document.createElement('span');
-            span.textContent = item;
-            dishModalMeta.appendChild(span);
-        });
-
-        dishModal.classList.add('open');
-        document.body.classList.add('modal-open');
-        autoScrollPaused = true;
     }
-
-    function closeDishModal() {
-        dishModal.classList.remove('open');
-        document.body.classList.remove('modal-open');
-        autoScrollPaused = false;
-    }
-
-    document.querySelectorAll('.grill-card').forEach(function(card) {
-        card.addEventListener('click', function() {
-            var dishKey = this.getAttribute('data-dish');
-            if (dishKey) openDishModal(dishKey);
-        });
-    });
-
-    dishModalOverlay.addEventListener('click', closeDishModal);
-    dishModalClose.addEventListener('click', closeDishModal);
-
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && dishModal.classList.contains('open')) {
-            closeDishModal();
-        }
-    });
 
 })();
